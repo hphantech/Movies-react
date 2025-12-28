@@ -4,14 +4,16 @@
 @import "tailwindcss";
 
 @theme {
-  --color-primary: #030014;
+  /* Core background */
+  --color-primary: #05070d; /* near-black, cool */
+  --color-dark-100: #090b10; /* cards/sections base */
 
-  --color-light-100: #cecefb;
-  --color-light-200: #a8b5db;
+  /* Light neutrals (replace the old purple tints) */
+  --color-light-100: #e7e7e7; /* for subtle strokes/highlights */
+  --color-light-200: #b9bcc2; /* placeholder/secondary */
 
-  --color-gray-100: #9ca4ab;
-
-  --color-dark-100: #0f0d23;
+  /* Muted gray text */
+  --color-gray-100: #9aa0a6;
 
   --font-dm-sans: DM Sans, sans-serif;
 
@@ -24,15 +26,16 @@
   body {
     font-family: "DM Sans", serif;
     font-optical-sizing: auto;
-    background: #333234;
+    background: #05070d; /* stop using random gray */
+    color: #e5e7eb;
   }
 
   h1 {
-    @apply mx-auto max-w-4xl text-center text-5xl font-bold leading-tight tracking-[-1%] text-white sm:text-[64px] sm:leading-[76px];
+    @apply mx-auto max-w-4xl text-center text-5xl font-bold leading-tight tracking-[-1%] text-zinc-100 sm:text-[64px] sm:leading-[76px];
   }
 
   h2 {
-    @apply text-2xl font-bold text-white sm:text-3xl;
+    @apply text-2xl font-bold text-zinc-100 sm:text-3xl;
   }
 
   main {
@@ -45,12 +48,16 @@
 
   header img {
     @apply w-full max-w-lg h-auto object-contain mx-auto drop-shadow-md;
+    filter: drop-shadow(0 10px 30px rgba(0, 0, 0, 0.55));
   }
 }
 
 @layer components {
   .pattern {
     @apply bg-hero-pattern w-full h-screen bg-center bg-cover absolute z-0;
+    /* darken + desaturate the hero bg so it matches the silver vibe */
+    filter: saturate(0.25) contrast(1.05) brightness(0.75);
+    opacity: 0.9;
   }
 
   .wrapper {
@@ -74,11 +81,33 @@
 
     & ul li img {
       @apply w-[127px] h-[163px] rounded-lg object-cover -ml-3.5;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.55);
     }
   }
+  .trending ul li {
+  @apply transition-all duration-300 ease-out;
+}
+
+.trending ul li:hover {
+  transform: translateY(-3px);
+}
+
+.trending ul li img {
+  @apply transition-all duration-300 ease-out;
+}
+
+.trending ul li:hover img {
+  transform: scale(1.04);
+  box-shadow:
+    0 14px 40px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
 
   .search {
-    @apply w-full bg-light-100/5 px-4 py-3 rounded-lg mt-10 max-w-3xl mx-auto;
+    /* more premium input: darker, subtle border, less “purple glow” */
+    @apply w-full bg-zinc-900/50 px-4 py-3 rounded-lg mt-10 max-w-3xl mx-auto
+           border border-white/5 backdrop-blur-sm;
 
     & div {
       @apply relative flex items-center;
@@ -86,10 +115,13 @@
 
     & img {
       @apply absolute left-2 h-5 w-5;
+      filter: grayscale(1) brightness(0.9);
+      opacity: 0.9;
     }
 
     & input {
-      @apply w-full bg-transparent py-2 sm:pr-10 pl-10 text-base text-gray-200 placeholder-light-200 outline-hidden;
+      @apply w-full bg-transparent py-2 sm:pr-10 pl-10 text-base text-zinc-100
+             placeholder-zinc-500 outline-hidden;
     }
   }
 
@@ -101,13 +133,27 @@
     }
   }
 
- .movie-card {
-  @apply bg-zinc-900/80 p-5 rounded-2xl 
+  .movie-card {
+  @apply bg-zinc-900/70 p-5 rounded-2xl
+         border border-white/5
          shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]
-         backdrop-blur-sm;
+         backdrop-blur-sm
+         transition-all duration-300 ease-out;
+  
+  &:hover {
+    @apply border-white/10;
+    transform: translateY(-4px);
+    box-shadow:
+      0 12px 40px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
 
   & img {
-    @apply rounded-lg h-auto w-full;
+    @apply rounded-lg h-auto w-full transition-transform duration-300 ease-out;
+  }
+
+  &:hover img {
+    transform: scale(1.02);
   }
 
   & h3 {
@@ -142,16 +188,21 @@
     @apply text-zinc-500 font-medium text-sm;
   }
 }
+
+  
 }
 
 @utility text-gradient {
-  @apply bg-linear-to-r from-[#D1D5DB] to-[#1F2933] bg-clip-text text-transparent;
+  /* clean silver-to-graphite gradient */
+  @apply bg-linear-to-r from-[#E5E7EB] via-[#A1A1AA] to-[#3F3F46] bg-clip-text text-transparent;
 }
 
 @utility fancy-text {
-  -webkit-text-stroke: 5px rgba(206, 206, 251, 0.5);
+  /* swap the purple stroke for a cool silver stroke */
+  -webkit-text-stroke: 5px rgba(229, 231, 235, 0.18);
   font-size: 190px;
   font-family: "Bebas Neue", sans-serif;
+  color: transparent;
 }
 
 @utility hide-scrollbar {
