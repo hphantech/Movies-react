@@ -101,45 +101,47 @@
     }
   }
 
-  .movie-card {
-    @apply bg-dark-100 p-5 rounded-2xl shadow-inner shadow-light-100/10;
+ .movie-card {
+  @apply bg-zinc-900/80 p-5 rounded-2xl 
+         shadow-[inset_0_1px_0_rgba(255,255,255,0.04)]
+         backdrop-blur-sm;
 
-    & img {
-      @apply rounded-lg h-auto w-full;
-    }
-
-    & h3 {
-      @apply text-white font-bold text-base line-clamp-1;
-    }
-
-    & .content {
-      @apply mt-2 flex flex-row items-center flex-wrap gap-2;
-    }
-
-    & .rating {
-      @apply flex flex-row items-center gap-1;
-    }
-
-    & .rating img {
-      @apply size-4 object-contain;
-    }
-
-    & .rating p {
-      @apply font-bold text-base text-white;
-    }
-
-    & .content span {
-      @apply text-sm text-gray-100;
-    }
-
-    & .content .lang {
-      @apply capitalize text-gray-100 font-medium text-base;
-    }
-
-    & .content .year {
-      @apply text-gray-100 font-medium text-base;
-    }
+  & img {
+    @apply rounded-lg h-auto w-full;
   }
+
+  & h3 {
+    @apply text-zinc-100 font-semibold text-base line-clamp-1;
+  }
+
+  & .content {
+    @apply mt-2 flex flex-row items-center flex-wrap gap-2;
+  }
+
+  & .rating {
+    @apply flex flex-row items-center gap-1;
+  }
+
+  & .rating img {
+    @apply size-4 object-contain opacity-80;
+  }
+
+  & .rating p {
+    @apply font-medium text-sm text-zinc-200;
+  }
+
+  & .content span {
+    @apply text-sm text-zinc-400;
+  }
+
+  & .content .lang {
+    @apply capitalize text-zinc-400 font-medium text-sm;
+  }
+
+  & .content .year {
+    @apply text-zinc-500 font-medium text-sm;
+  }
+}
 }
 
 @utility text-gradient {
